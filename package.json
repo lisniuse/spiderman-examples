@@ -1,0 +1,15 @@
+{
+  "name": "spiderman-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "spiderman.config.js",
+  "scripts": {
+    "start": "node ../spiderman/bin/spiderman.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^8.0.1"
+  }
+}
