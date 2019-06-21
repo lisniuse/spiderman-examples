@@ -61,7 +61,17 @@ module.exports = function(data) {
         </ol>
       </div>
     </div>
-    <script src="./lib/init.js">
+    <script>
+      (function() {
+        var app = new Vue({
+          el: '.main',
+          data() {
+            return {
+              data: Data()
+            }
+          }
+        })
+      })();
     </script>
   </body>
   </html>
