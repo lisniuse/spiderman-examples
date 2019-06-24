@@ -4,15 +4,19 @@ const articleIndex = require('./articleTpl/index');
 
 module.exports = function (config = {}) {
   // 网站基地址，必填。
-  config.baseUrl = 'http://www.woshipm.com'
+  config.baseUrl = 'https://xueqiu.com'
   // 网站域名，不填写则自动生成。
-  config.domain = 'www.woshipm.com';
+  config.domain = 'xueqiu.com';
   // 文章副标题，不填写则自动生成。
-  config.articleSubTitle = ' | 人人都是产品经理';
+  config.articleSubTitle = ' - 雪球';
   // 爬取规则，可以填写内置分析器类型类自动获取数据
   config.rules = [{
-    auto: config.AUTO.ARTICLE,
-    url: 'http://www.woshipm.com/copy/2489936.html'
+    name: 'article',
+    check: '.article__bd .article__bd__title',
+    fields: {
+      title: '.article__bd .article__bd__title',
+      content: '.article__bd .article__bd__detail'
+    }
   }];
   config.maxUrl = 10000;
   // 爬取的内容输出目录，不填写则不输出。
@@ -20,7 +24,7 @@ module.exports = function (config = {}) {
   const outDir = `${__dirname}/${config.outDir}`;
 
   // 生命周期开始
-  config.started = function(data) {
+  config.started = function (data) {
     const indexPath = `${outDir}/index.html`;
     fs.copySync(`${__dirname}/articleTpl/lib`, `${outDir}/lib`);
     fs.copySync(`${__dirname}/articleTpl/data.js`, `${outDir}/data.js`);
@@ -39,7 +43,7 @@ module.exports = function (config = {}) {
         title: result.fields.title,
         link: `${result.name}${htmlFileName}`
       });
-      let dataTpl  = require(`${__dirname}/articleTpl/dataTpl.js`);
+      let dataTpl = require(`${__dirname}/articleTpl/dataTpl.js`);
       fs.outputFileSync(`${outDir}/data.js`, dataTpl(JSON.stringify(data)));
       fs.outputFileSync(filepath, articleTpl({
         olink: url,
