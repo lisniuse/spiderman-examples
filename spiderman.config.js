@@ -18,6 +18,9 @@ module.exports = function (config = {}) {
       content: '.article__bd .article__bd__detail'
     }
   }];
+
+  config.printUrl = true;
+
   config.maxUrl = 10000;
   // 爬取的内容输出目录，不填写则不输出。
   config.outDir = `./${config.domain}`;
@@ -32,7 +35,8 @@ module.exports = function (config = {}) {
   };
 
   // 爬取数据回调，可以自定义存储。
-  config.callback = function (result, url) {
+  config.callback = function (params) {
+    let { result, url } = params;
     const filename = result.fields.title.replace(/[\'\"\\\/\b\f\n\r\t]/g, '');
     const htmlFileName = `/${filename}.html`;
     const filepath = `${outDir}/${result.name}${htmlFileName}`;
